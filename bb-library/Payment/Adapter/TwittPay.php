@@ -31,7 +31,7 @@ class Payment_Adapter_TwittPay implements \Box\InjectionAwareInterface
     {
         $this->config = $config;
 
-        if (empty($config['api_key']) || empty($config['api_url'])) {
+        if (empty($config['api_key'])) {
             throw new Payment_Exception(
                 'TwittPay is not fully configured. Please provide the Endpoint URL and the Brand Key.'
             );
@@ -52,7 +52,7 @@ class Payment_Adapter_TwittPay implements \Box\InjectionAwareInterface
                 'api_url' => [
                     'text', [
                         'label'       => 'Endpoint URL:',
-                        'description' => 'Your own gateway address, for example https://checkout.twittpay.com',
+                        'description' => 'Optional. Leave empty to use the default checkout address (https://checkout.twittpay.com)',
                     ],
                 ],
                 'api_key' => [
@@ -298,7 +298,7 @@ class Payment_Adapter_TwittPay implements \Box\InjectionAwareInterface
      */
     protected function baseUrl()
     {
-        $raw    = rtrim(trim((string) $this->config['api_url']), '/');
+        $raw    = rtrim(trim((string) ($this->config['api_url'] ?? '')), '/');
         $scheme = parse_url($raw, PHP_URL_SCHEME);
         $host   = parse_url($raw, PHP_URL_HOST);
 

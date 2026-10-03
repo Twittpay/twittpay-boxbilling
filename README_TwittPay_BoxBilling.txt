@@ -16,9 +16,6 @@
    2. Find "TwittPay" in the list of new gateways and click it to install.
    3. Fill in:
 
-        Endpoint URL      your own gateway address, e.g.
-                          https://checkout.twittpay.com
-                          (the API host shown on your gateway's developer page)
 
         Brand Key           from your gateway dashboard, under Brands
 
@@ -49,8 +46,6 @@
      client credit BoxBilling records stay in the invoice's currency.
 
  WHAT TO WATCH
-   * The Endpoint URL is your API host. Pasting the whole endpoint or a trailing
-     /api is fine - only the scheme and host are used.
    * Tick "Send the customer straight to the payment page" if you do not want the
      extra button click.
    * Refunds are not done through the API. Refund on the gateway side, then

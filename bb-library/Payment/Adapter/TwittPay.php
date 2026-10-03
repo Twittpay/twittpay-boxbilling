@@ -33,7 +33,7 @@ class Payment_Adapter_TwittPay implements \Box\InjectionAwareInterface
 
         if (empty($config['api_key'])) {
             throw new Payment_Exception(
-                'TwittPay is not fully configured. Please provide the Endpoint URL and the Brand Key.'
+                'TwittPay is not fully configured. Please provide the Brand Key.'
             );
         }
 
@@ -49,12 +49,6 @@ class Payment_Adapter_TwittPay implements \Box\InjectionAwareInterface
             'supports_subscriptions'     => false,
             'description'                => 'Accept bKash, Nagad, Rocket, Upay and card payments through your own TwittPay gateway.',
             'form' => [
-                'api_url' => [
-                    'text', [
-                        'label'       => 'Endpoint URL:',
-                        'description' => 'Optional. Leave empty to use the default checkout address (https://checkout.twittpay.com)',
-                    ],
-                ],
                 'api_key' => [
                     'text', [
                         'label'       => 'Brand Key:',
@@ -298,20 +292,7 @@ class Payment_Adapter_TwittPay implements \Box\InjectionAwareInterface
      */
     protected function baseUrl()
     {
-        $raw    = rtrim(trim((string) ($this->config['api_url'] ?? '')), '/');
-        $scheme = parse_url($raw, PHP_URL_SCHEME);
-        $host   = parse_url($raw, PHP_URL_HOST);
-
-        if (empty($host)) {
-            $host = strtok(ltrim(preg_replace('#^[a-z]+://#i', '', $raw), '/'), '/');
-        }
-
-        if (empty($scheme)) {
-            $scheme = 'https';
-        }
-
-        if (empty($host)) { $host = 'checkout.twittpay.com'; }
-        return 'https://' . $host;
+        return 'https://checkout.twittpay.com';
     }
 
     /** One POST to the API. JSON in, array out. */
